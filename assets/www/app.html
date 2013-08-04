@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Get the weather!</title>
+<link rel="stylesheet" href="js/jquerymobile/jquery.mobile-1.3.2.min.css"/>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/jquerymobile/jquery.mobile-1.3.2.min.js" type="text/javascript"></script>
+<script src="js/script.js" type="text/javascript"></script>
+<link rel="stylesheet" href="css/index.css"/>
+</head>
+<body>
+	<div data-role="page" id="pag1" data-title="Primera página" data-add-back-btn="true" data-theme="b">
+		<div data-role="header">
+			<h1>Get the Weather!</h1>
+			<a href="#pag2" data-icon="arrow-r" class="ui-btn-right">Siguiente</a>
+		</div>
+		<div data-role="content">
+			<div>
+				<ul data-role="listview" id="weather"></ul>
+				<div class="weatherDetails">
+					<dl class="coordenadas" data-role="collapsible">
+						<h4>City location:</h4>
+						<dt>Longitud:</dt>
+						<dd class="lon"></dd>
+						<dt>Latitud:</dt>
+						<dd class="lat"></dd>
+					</dl>
+					<dl class="sys" data-role="collapsible">
+						<h4 data-role="title">Sistema</h4>
+						<dt>País:</dt>
+						<dd class="country"></dd>
+						<dt>Amanecer:</dt>
+						<dd class="sunrise"></dd>
+						<dt>Ocaso:</dt>
+						<dd class="sunset"></dd>
+						<dt>Tiempo:</dt>
+					</dl>
+					<dl class="weather" data-role="collapsible">
+						<h4>Tiempo</h4>
+						<dt>Id:</dt>
+						<dd class="id"></dd>
+						<dt>Principal:</dt>
+						<dd class="main"></dd>
+						<dt>Descripción:</dt>
+						<dd class="description"></dd>
+						<dt>Icono</dt>
+						<dd class="icon"></dd>
+					</dl>
+					<dl class="base" data-role="collapsible">
+						<h4>Base</h4>
+						<dt>Base:</dt>
+						<dd class="base"></dd>
+					</dl>
+					<dl class="main" data-role="collapsible">
+						<h4>Principal</h4>
+						<dt>Temperature in Kelvin. Subtracted 273.15 from this figure to convert to Celsius:</dt>
+						<dd class="temp"></dd>
+						<dt>Presión</dt>
+						<dd class="pressure"></dd>
+						<dt>Mínima:</dt>
+						<dd class="temp_min"></dd>
+						<dt>Máxima:</dt>
+						<dd class="temp_max"></dd>
+						<dt>Humedad:</dt>
+						<dd class="humidity"></dd>
+					</dl>
+					<dl class="wind" data-role="collapsible">
+						<h4>Viento:</h4>
+						<dt>Velocidad:</dt>
+						<dd class="speed"></dd>
+						<dt>Grados:</dt>
+						<dd class="deg"></dd>
+					</dl>
+						
+					<dl class="clouds" data-role="collapsible">
+						<h4>Nubosidad:</h4>
+						<dt>Todo:</dt>
+						<dd class="all"></dd>
+					</dl>
+					<dl class="root" data-role="collapsible">
+						<dt>Time of data receiving in unixtime GMT:</dt>
+						<dd class="dt"></dd>
+						<dt>id:</dt>
+						<dd class="id"></dd>
+						<dt>City name:</dt>
+						<dd class="name"></dd>
+						<dt>Cod:</dt>
+						<dd class="cod"></dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed" class="ui-bar">
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<a href="#pag2" data-role="button" data-inline="true">Detalles de cliente</a>
+				<a href="#pag3" data-role="button" data-inline="true">Formulario de ingreso</a>
+			</div>
+			<h4>Linda app</h4>
+		</div>
+	</div>
+	<div data-role="page" id="pag2" data-title="Segunda página" data-add-back-btn="true" data-theme="b">
+		<div data-role="header">
+			<h1>Detalles de cliente</h1>
+			<a href="#pag1" data-icon="arrow-l" class="ui-btn-left">Anterior</a>
+			<a href="#pag3" data-icon="arrow-r" class="ui-btn-right">Siguiente</a>
+		</div>
+		<div data-role="content">
+			<div class="detallescliente"></div>
+		</div>
+		<div data-role="footer" data-position="fixed" class="ui-bar">
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<a href="#pag1" data-role="button" data-inline="true">Listado de clientes</a>
+				<a href="#pag3" data-role="button" data-inline="true">Formulario de ingreso</a>
+			</div>
+			<h4>Linda app</h4>
+		</div>
+	</div>
+	<div data-role="page" id="pag3" data-title="Tercera página" data-add-back-btn="true" data-theme="d">
+		<div data-role="header">
+			<h1>Formulario de ingreso</h1>
+			<a href="#pag2" data-icon="arrow-l" class="ui-btn-left">Anterior</a>
+		</div>
+		<div data-role="content">
+			
+		</div>
+		<div data-role="footer" data-position="fixed" class="ui-bar">
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<a href="#pag1" data-role="button" data-inline="true">Listado de clientes</a>
+				<a href="#pag2" data-role="button" data-inline="true">Detalles de cliente</a>
+			</div>
+			<h4>Linda app</h4>
+		</div>
+	</div>
+</body>
+</html>
