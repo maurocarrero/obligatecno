@@ -16,78 +16,97 @@
 		</div>
 		<div data-role="content">
 			<div>
-				<ul data-role="listview" id="weather"></ul>
-				<div class="weatherDetails">
-					<dl class="coordenadas" data-role="collapsible">
-						<h4>City location:</h4>
-						<dt>Longitud:</dt>
-						<dd class="lon"></dd>
-						<dt>Latitud:</dt>
-						<dd class="lat"></dd>
-					</dl>
-					<dl class="sys" data-role="collapsible">
-						<h4 data-role="title">Sistema</h4>
-						<dt>País:</dt>
-						<dd class="country"></dd>
-						<dt>Amanecer:</dt>
-						<dd class="sunrise"></dd>
-						<dt>Ocaso:</dt>
-						<dd class="sunset"></dd>
-						<dt>Tiempo:</dt>
-					</dl>
-					<dl class="weather" data-role="collapsible">
-						<h4>Tiempo</h4>
-						<dt>Id:</dt>
-						<dd class="id"></dd>
-						<dt>Principal:</dt>
-						<dd class="main"></dd>
-						<dt>Descripción:</dt>
-						<dd class="description"></dd>
-						<dt>Icono</dt>
-						<dd class="icon"></dd>
-					</dl>
-					<dl class="base" data-role="collapsible">
-						<h4>Base</h4>
-						<dt>Base:</dt>
-						<dd class="base"></dd>
-					</dl>
-					<dl class="main" data-role="collapsible">
-						<h4>Principal</h4>
-						<dt>Temperature in Kelvin. Subtracted 273.15 from this figure to convert to Celsius:</dt>
-						<dd class="temp"></dd>
-						<dt>Presión</dt>
-						<dd class="pressure"></dd>
-						<dt>Mínima:</dt>
-						<dd class="temp_min"></dd>
-						<dt>Máxima:</dt>
-						<dd class="temp_max"></dd>
-						<dt>Humedad:</dt>
-						<dd class="humidity"></dd>
-					</dl>
-					<dl class="wind" data-role="collapsible">
-						<h4>Viento:</h4>
-						<dt>Velocidad:</dt>
-						<dd class="speed"></dd>
-						<dt>Grados:</dt>
-						<dd class="deg"></dd>
-					</dl>
-						
-					<dl class="clouds" data-role="collapsible">
-						<h4>Nubosidad:</h4>
-						<dt>Todo:</dt>
-						<dd class="all"></dd>
-					</dl>
-					<dl class="root" data-role="collapsible">
-						<dt>Time of data receiving in unixtime GMT:</dt>
-						<dd class="dt"></dd>
-						<dt>id:</dt>
-						<dd class="id"></dd>
-						<dt>City name:</dt>
-						<dd class="name"></dd>
-						<dt>Cod:</dt>
-						<dd class="cod"></dd>
-					</dl>
+			<form>
+				<div data-role="fieldcontain">
+					<label for="op">Qué desea?:</label>
+				    <select name="op" id="op">
+				        <option value="1">Buscar por ciudad</option>
+				        <option value="2">Geolocalización</option>
+				    </select>
 				</div>
+				<div id="by-city">
+					<div data-role="fieldcontain">
+						<label for="ciudad">Eliga la ciudad:</label>
+					    <select name="ciudad" id="ciudad">
+					        <option value="0">--Ciudades--</option>
+					        <option value="1">Montevideo, Uruguay</option>
+					        <option value="2">New York, USA</option>
+					        <option value="3">Madrid, España</option>
+					        <option value="4">Paris, Francia</option>
+					    </select>
+					</div>
+				</div>
+			</form>
+			</div>
+		
+			<div class="ui-bar ui-bar-e" id="recalculando"></div>
+			<div class="weather">
+				<dl class="details">
+					<dt><strong>Ciudad</strong></dt>
+					<dd class="name"></dd>
+					<dt>País:</dt>
+					<dd class="country"></dd>
+					<dt>Coordenadas:</dt>
+					<dd>
+						<table>
+							<tr>
+								<th>Longitud</th><th>Latitud</th>
+							</tr>
+							<tr>
+								<td class="lon"></td><td class="lat"></td>
+							</tr>
+						</table>
+					</dd>
+					<dt>Horarios:</dt>
+					<dd>
+						<table>
+							<tr>
+								<th>Amanecer</th><th>Ocaso</th>
+							</tr>
+							<tr>
+								<td class="sunrise"></td><td class="sunset"></td>
+							</tr>
+						</table>
+					</dd>
+					<dt>Descripción:</dt>
+					<dd class="description"></dd>
+					<dt>Icono</dt>
+					<dd class="icon"></dd>
+					<dt>Principal<dt>
+					<dd>
+						<table>
+							<tr>
+								<th>Temperatura (C)</th>
+								<th>Presión</th>
+								<th>Mínima</th>
+								<th>Máxima</th>
+								<th>Humedad</th>
+							</tr>
+							<tr>
+								<td class="temp"></td>
+								<td class="pressure"></td>
+								<td class="temp_min"></td>
+								<td class="temp_max"></td>
+								<td class="humidity"></td>
+							</tr>
+						</table>
+					</dd>
+					<!-- 
+					<dt>Viento:</dt>
+					<dd>
+						<table data-role="table">
+							<tr>
+								<th>Velocidad</th>
+								<th>Grados</th>
+							</tr>
+							<tr>
+								<td class="speed"></td>
+								<td class="deg"></td>
+							</tr>
+						</table>
+					</dd>
+					 -->
+				</dl>
 			</div>
 		</div>
 		<div data-role="footer" data-position="fixed" class="ui-bar">

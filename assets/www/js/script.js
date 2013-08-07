@@ -1,95 +1,138 @@
 $(document).ready(function(){
-	
-	var weather = jQuery.ajax({
-	    type: "GET",
-	    url: "http://api.openweathermap.org/data/2.5/weather?q=Montevideo,uy",
-	    dataType: "jsonp",
-	    success: function(results){
-	    	$(".weatherDetails").find("dl.coordenadas").find("dd.lon").text(results.coord.lon);
-	    	$(".weatherDetails").find("dl.coordenadas").find("dd.lat").text(results.coord.lat);
-	    	$(".weatherDetails").find("dl.sys").find("dd.country").text(results.sys.country);
-	    	$(".weatherDetails").find("dl.sys").find("dd.sunrise").text(results.sys.sunrise);
-	    	$(".weatherDetails").find("dl.sys").find("dd.sunset").text(results.sys.sunset);
-	    	$(".weatherDetails").find("dl.weather").find("dd.id").text(results.weather[0].id);
-	    	$(".weatherDetails").find("dl.weather").find("dd.main").text(results.weather[0].main);
-	    	$(".weatherDetails").find("dl.weather").find("dd.description").text(results.weather[0].description);
-	    	$(".weatherDetails").find("dl.weather").find("dd.icon").text(results.weather[0].icon);
-	    	$(".weatherDetails").find("dl.base").find("dd.base").text(results.base);
-	    	$(".weatherDetails").find("dl.main").find("dd.temp").text(results.main.temp - 273.15);
-	    	$(".weatherDetails").find("dl.main").find("dd.pressure").text(results.main.pressure);
-	    	$(".weatherDetails").find("dl.main").find("dd.temp_min").text(results.main.temp_min);
-	    	$(".weatherDetails").find("dl.main").find("dd.temp_max").text(results.main.temp_max);
-	    	$(".weatherDetails").find("dl.main").find("dd.humidity").text(results.main.humidity);
-	    	$(".weatherDetails").find("dl.wind").find("dd.speed").text(results.wind.speed);
-	    	$(".weatherDetails").find("dl.wind").find("dd.deg").text(results.wind.deg);
-	    	$(".weatherDetails").find("dl.clouds").find("dd.all").text(results.clouds.all);
-	    	$(".weatherDetails").find("dl.clouds").find("dd.all").text(results.clouds.all);
-	    	$(".weatherDetails").find("dl.clouds").find("dd.all").text(results.clouds.all);
-	    	$(".weatherDetails").find("dl.root").find("dd.dt").text(results.dt);
-	    	$(".weatherDetails").find("dl.root").find("dd.id").text(results.id)
-	    	$(".weatherDetails").find("dl.root").find("dd.name").text(results.name)
-	    	$(".weatherDetails").find("dl.root").find("dd.cod").text(results.cod)
-	        console.log("Success!");
-	    },
-	    error: function(XMLHttpRequest, textStatus, errorThrown){
-	        console.log("XMLHttpRequest: " + XMLHttpRequest);
-	        console.log("textStatus: " + textStatus);
-	        console.log("errorThrown: " + errorThrown);
-	    }
-	});	
-	
-	/*
-	  
-	 cargarDetalles(clientes[0]);
 
-	for (var i=0; i < clientes.length; i++) {
-
-		var li = $("<li/>");
-		li.addClass("cliente");
-		var anchor = $("<a/>", {
-			href: "#",
-			text: clientes[i].nombre
-		});
-		anchor.data("id", clientes[i].id);
-		anchor.appendTo(li);
-		li.appendTo("ul#clientes");
-		$("ul#clientes").listview("refresh");
+	init();
+	
+	function init()
+	{
+		$("#recalculando").html("").hide();
 	}
-
-	$("li.cliente").on("click", "a", function(){
-		var id = $(this).data("id");
-		console.log("id: " + id);
-		for (var j=0; j < clientes.length; j++) {
-			if (clientes[j].id == id) {
-				console.log("id del array: " + clientes[j].id);
-				cargarDetalles(clientes[j]);
-				break;
-			}
+	
+	
+	function weatherQuery(queryString, url)
+	{
+		return jQuery.ajax({
+		    type: "POST",
+		    data: queryString,
+		    url: url,
+		    dataType: "jsonp",
+		    beforeSend: recalculando,
+		    success: function(data){
+		    	mostrarResultados(data);
+		    	console.log("Success!");
+		    }, 
+		    error: function(XMLHttpRequest, textStatus, errorThrown){
+		        console.log("XMLHttpRequest: " + XMLHttpRequest);
+		        console.log("textStatus: " + textStatus);
+		        console.log("errorThrown: " + errorThrown);
+		        $("#recalculando").html("Hubo problemas para procesar la información.").show();
+		    }
+		});
+		
+	}
+	
+	function recalculando()
+	{
+		$("#recalculando")
+			.html("Estamos cargando los datos. Por favor, aguarde...")
+			.css({
+				"margin-bottom": "2em",
+				"text-align": "center"
+			})
+			.show();
+	}
+	
+	function mostrarResultados(data)
+	{
+		$(".weather").find("dl.details").find("dd.name").text(data.name);
+		$(".weather").find("dl.details").find("dd.id").text(data.id);
+		$(".weather").find("dl.details").find("dd.country").text(data.sys.country);
+		$(".weather").find("dl.details").find("td.lon").text(data.coord.lon);
+    	$(".weather").find("dl.details").find("td.lat").text(data.coord.lat);
+    	$(".weather").find("dl.details").find("td.sunrise").text(data.sys.sunrise);
+    	$(".weather").find("dl.details").find("td.sunset").text(data.sys.sunset);
+    	$(".weather").find("dl.details").find("dd.description").text(data.weather[0].description);
+    	$(".weather").find("dl.details").find("dd.icon").text(data.weather[0].icon);
+    	$(".weather").find("dl.details").find("td.temp").text((data.main.temp - 273.15).toFixed(2));
+    	$(".weather").find("dl.details").find("td.pressure").text(data.main.pressure);
+    	$(".weather").find("dl.details").find("td.temp_min").text((data.main.temp_min - 273.15).toFixed(2));
+    	$(".weather").find("dl.details").find("td.temp_max").text((data.main.temp_max - 273.15).toFixed(2));
+    	$(".weather").find("dl.details").find("td.humidity").text(data.main.humidity + "%");
+    	$(".weather").find("dl.details").find("td.speed").text(data.wind.speed);
+    	$(".weather").find("dl.details").find("td.deg").text(data.wind.deg);
+    	
+    	$("#recalculando").html("Búsqueda finalizada con éxito.");
+	}	
+	
+	/***************************** EVENTOS BEGIN ***********************************/
+	
+	$("#ciudad").on("change", function(){
+		
+		var id = $(this).find("option:selected").val();
+		
+		if (id > 0) {
+			/*	PAISES */
+			id--;
+			
+			 var ciudades = new Array("Montevideo,uy", "New York,us", "Madrid,es", "Paris,fr"); 	
+			
+			/* PARAMETROS
+			 * lat: latitud
+			 * lon: longitud
+			 * cnt: cantidad de días
+			 * mode: data format (json/xml)
+			 * units: sistema de medida (metric)
+			 * lang: lenguaje 
+			 */
+			var lat = "";
+			var lon = "";
+			var cityId = "";
+			var queryString = "lang=sp&q=" + ciudades[id];
+			
+			console.log(id + "  " + queryString);
+			
+			/* Query de ciudad q=Montevideo,uy */
+			var urlByCityQuery = "http://api.openweathermap.org/data/2.5/weather?";
+			/* Latitud y longitud - últimos 5 días */
+			var urlByCoords = "api.openweathermap.org/data/2.5/forecast/daily?lat=35&lon=139&cnt=5&mode=json";
+			/* Id de ciudad id=524901 */
+			var urlByCityId = "api.openweathermap.org/data/2.5/forecast/daily?id=524901";
+			
+			weatherQuery(queryString, urlByCityQuery);
 		}
-		$.mobile.changePage("#pag2");
 	});
 	
-	*/
+	/***************************** EVENTOS END ***********************************/
+	
+	
+	// Espere a que PhoneGap se inicie
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+    
+    // PhoneGap esta listo
+    //
+    function onDeviceReady() {
+    	
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+
+    // onSuccess Geolocation
+    //
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        element.innerHTML = 'Latitud: ' + position.coords.latitude + '<br />' +
+          'Longitud: '        + position.coords.longitude         + '\n' +
+          'Altitud: '         + position.coords.altitude          + '\n' +
+          'Precisión: '       + position.coords.accuracy          + '\n' +
+          'Precisión altitud' + position.coords.altitudeAccuracy  + '\n' +
+          'Dirección: '       + position.coords.heading           + '\n' +
+          'Velocidad: '       + position.coords.speed             + '\n' +
+          'Timestamp: '       + new Date(position.timestamp)      + '\n';
+    }
+
+    // La función 'callback' onError recibe un objeto `PositionError`.
+    //
+    function onError(error) {
+        alert('código: '    + error.code    + '\n' +
+              'mensaje: ' + error.message + '\n');
+    }
 });
-
-
-function cargarDetalles(cliente)
-{
-	var detalles = $(".detallescliente");
-	detalles.empty();
-	detalles.data("id", cliente.id);
-	var nombre = $("<div/>", {
-		text: "Nombre: " + cliente.nombre
-	});
-	var edad = $("<div/>", {
-		text: "Edad: " + cliente.edad
-	});
-	var sexo = $("<div/>", {
-		text: "Sexo: " + devolverSexo(cliente.sexo)
-	});
-
-	nombre.appendTo(detalles);
-	edad.appendTo(detalles);
-	sexo.appendTo(detalles);
-}
-
